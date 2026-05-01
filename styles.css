@@ -1209,6 +1209,222 @@ a.contact-card:focus-visible {
   color: var(--col-text-dim);
 }
 
+/* ── ELECTRIC ANIMATIONS ── */
+
+/* Logo neon flicker */
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      0 0 6px #F97316,
+      0 0 16px #F97316,
+      0 0 32px #F97316,
+      0 0 60px rgba(249,115,22,0.6);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+.logo-pn {
+  animation: neonFlicker 6s infinite;
+}
+
+/* Orange accent pulse glow */
+@keyframes electricPulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(249,115,22,0.4), 0 0 20px rgba(249,115,22,0.2); }
+  50%       { box-shadow: 0 0 16px rgba(249,115,22,0.8), 0 0 40px rgba(249,115,22,0.4), 0 0 70px rgba(249,115,22,0.15); }
+}
+
+.btn-primary {
+  animation: electricPulse 2.5s ease-in-out infinite;
+}
+
+/* Hero heading shimmer */
+@keyframes headingShimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+.hero h1 .accent,
+.section-header h2 .accent {
+  background: linear-gradient(
+    90deg,
+    #F97316 0%,
+    #FBBF24 30%,
+    #fff    50%,
+    #FBBF24 70%,
+    #F97316 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: headingShimmer 3s linear infinite;
+}
+
+/* Electric border on cards */
+@keyframes borderCharge {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.service-card::before,
+.review-card::before,
+.why-card::before,
+.price-card--featured::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #F97316, #FBBF24, #ff4500, #F97316);
+  background-size: 300% 300%;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity var(--t-normal);
+  animation: borderCharge 3s ease infinite;
+}
+
+.service-card { position: relative; z-index: 0; }
+.review-card  { position: relative; z-index: 0; }
+.why-card     { position: relative; z-index: 0; }
+
+.service-card:hover::before,
+.review-card:hover::before,
+.why-card:hover::before {
+  opacity: 1;
+}
+
+.price-card--featured::before { opacity: 0.6; }
+.price-card--featured:hover::before { opacity: 1; }
+
+/* Section entry zap flash */
+@keyframes sectionZap {
+  0%   { box-shadow: inset 0 0 0 1px transparent; }
+  15%  { box-shadow: inset 0 0 0 1px rgba(249,115,22,0.8), 0 0 30px rgba(249,115,22,0.2); }
+  100% { box-shadow: inset 0 0 0 1px transparent; }
+}
+
+.section-zap {
+  animation: sectionZap 0.6s ease-out forwards;
+}
+
+/* Electric divider lines */
+.section + .section::before,
+.section-dark + .section::before,
+.section + .section-dark::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(249,115,22,0.6) 30%,
+    rgba(251,191,36,1) 50%,
+    rgba(249,115,22,0.6) 70%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: dividerCharge 3s linear infinite;
+}
+
+@keyframes dividerCharge {
+  0%   { background-position:  100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* Section label electric flicker */
+@keyframes labelPulse {
+  0%, 90%, 100% { border-color: rgba(249,115,22,0.25); }
+  95%            { border-color: rgba(249,115,22,0.9); box-shadow: 0 0 8px rgba(249,115,22,0.4); }
+}
+
+.section-label {
+  animation: labelPulse 4s ease-in-out infinite;
+}
+
+/* Nav CTA spark on hover */
+.nav-cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-cta::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -60%;
+  width: 40%; height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: skewX(-20deg);
+  animation: navSweep 3s ease-in-out infinite;
+}
+
+@keyframes navSweep {
+  0%, 70%, 100% { left: -60%; opacity: 0; }
+  30%           { left: 130%; opacity: 1; }
+}
+
+/* Hero badge crackle */
+@keyframes badgeCrackle {
+  0%, 100% { box-shadow: 0 0 4px rgba(251,191,36,0.3); }
+  50%       { box-shadow: 0 0 12px rgba(251,191,36,0.7), 0 0 24px rgba(249,115,22,0.3); }
+}
+
+.hero-badge {
+  animation: badgeCrackle 2s ease-in-out infinite;
+}
+
+/* Trust items zap in sequence */
+.trust-item:nth-child(1) { animation: trustZap 4s 0.0s ease-in-out infinite; }
+.trust-item:nth-child(2) { animation: trustZap 4s 0.5s ease-in-out infinite; }
+.trust-item:nth-child(3) { animation: trustZap 4s 1.0s ease-in-out infinite; }
+.trust-item:nth-child(4) { animation: trustZap 4s 1.5s ease-in-out infinite; }
+
+@keyframes trustZap {
+  0%, 85%, 100% { color: var(--col-text-muted); }
+  90%           { color: var(--col-text); text-shadow: 0 0 8px rgba(249,115,22,0.6); }
+}
+
+/* EICR promo bolt pulse */
+.promo-bolt {
+  animation: boltSpin 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes boltSpin {
+  0%   { transform: scale(1) rotate(-5deg); filter: drop-shadow(0 0 4px rgba(249,115,22,0.8)); }
+  100% { transform: scale(1.2) rotate(5deg); filter: drop-shadow(0 0 10px rgba(249,115,22,1)); }
+}
+
+/* Featured price card glow pulse */
+.price-card--featured .price-offer {
+  animation: priceGlow 2s ease-in-out infinite;
+}
+
+@keyframes priceGlow {
+  0%, 100% { text-shadow: 0 0 8px rgba(249,115,22,0.4); }
+  50%       { text-shadow: 0 0 20px rgba(249,115,22,0.9), 0 0 40px rgba(249,115,22,0.4); }
+}
+
+/* Community offer icon crackle */
+.offer-icon {
+  animation: iconCrackle 3s ease-in-out infinite;
+}
+
+.community-offer:nth-child(2) .offer-icon {
+  animation-delay: 1.5s;
+}
+
+@keyframes iconCrackle {
+  0%, 80%, 100% { box-shadow: none; }
+  90%           { box-shadow: 0 0 12px rgba(249,115,22,0.7), 0 0 24px rgba(249,115,22,0.3); }
+}
+
+/* Footer brand flicker */
+.footer-brand .logo-pn {
+  animation: neonFlicker 8s 2s infinite;
+}
+
 /* ── UTILITY ── */
 @media (max-width: 400px) {
   .hero-actions { flex-direction: column; }
