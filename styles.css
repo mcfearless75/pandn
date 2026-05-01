@@ -15,7 +15,7 @@
   --col-amber:       #FBBF24;
   --col-text:        #F5F5F5;
   --col-text-muted:  #9A9A9A;
-  --col-text-dim:    #666;
+  --col-text-dim:    #767676;
   --col-white:       #FFFFFF;
 
   /* Typography */
@@ -56,7 +56,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 70px;
+  scroll-padding-top: 66px;
 }
 
 body {
@@ -1070,6 +1070,13 @@ a.contact-card:focus-visible {
 }
 
 .footer-nav a:hover { color: var(--col-orange); }
+
+.footer-nav a:focus-visible,
+.footer-contact a:focus-visible {
+  outline: 2px solid var(--col-orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 
 .footer-contact {
   display: flex;

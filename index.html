@@ -7,16 +7,21 @@
   <meta name="theme-color" content="#0D0D0D" />
   <title>P&N Electrical Services | Wirral Electrician | 07941 061 966</title>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D0D0D'/%3E%3Cpath d='M18 4L8 18h8l-2 10 10-14h-8z' fill='%23F97316'/%3E%3C/svg%3E" />
+
   <!-- Open Graph -->
   <meta property="og:title" content="P&N Electrical Services | Wirral Electrician" />
   <meta property="og:description" content="Trusted local electrician on the Wirral. EICR from £95, outdoor lighting, rewiring and more." />
   <meta property="og:image" content="images/brand-logo-mat.jpg" />
   <meta property="og:type" content="website" />
 
-  <!-- Fonts -->
+  <!-- Fonts — non-blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" /></noscript>
 
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -220,38 +225,38 @@
           <div class="pricing-grid">
             <div class="price-card">
               <div class="price-beds">1 Bedroom</div>
-              <div class="price-normal" aria-label="Normal price £100"><del>£100</del></div>
+              <div class="price-normal" aria-label="Normal price £100"><del aria-hidden="true">£100</del></div>
               <div class="price-offer" aria-label="Offer price £95">£95</div>
               <div class="price-save">Save £5</div>
             </div>
             <div class="price-card">
               <div class="price-beds">2 Bedroom</div>
-              <div class="price-normal" aria-label="Normal price £125"><del>£125</del></div>
+              <div class="price-normal" aria-label="Normal price £125"><del aria-hidden="true">£125</del></div>
               <div class="price-offer" aria-label="Offer price £115">£115</div>
               <div class="price-save">Save £10</div>
             </div>
             <div class="price-card price-card--featured">
               <div class="price-badge">Most Common</div>
               <div class="price-beds">3 Bedroom</div>
-              <div class="price-normal" aria-label="Normal price £135"><del>£135</del></div>
+              <div class="price-normal" aria-label="Normal price £135"><del aria-hidden="true">£135</del></div>
               <div class="price-offer" aria-label="Offer price £120">£120</div>
               <div class="price-save">Save £15</div>
             </div>
             <div class="price-card">
               <div class="price-beds">4 Bedroom</div>
-              <div class="price-normal" aria-label="Normal price £155"><del>£155</del></div>
+              <div class="price-normal" aria-label="Normal price £155"><del aria-hidden="true">£155</del></div>
               <div class="price-offer" aria-label="Offer price £130">£130</div>
               <div class="price-save">Save £25</div>
             </div>
             <div class="price-card">
               <div class="price-beds">5 Bedroom</div>
-              <div class="price-normal" aria-label="Normal price £165"><del>£165</del></div>
+              <div class="price-normal" aria-label="Normal price £165"><del aria-hidden="true">£165</del></div>
               <div class="price-offer" aria-label="Offer price £140">£140</div>
               <div class="price-save">Save £25</div>
             </div>
             <div class="price-card">
               <div class="price-beds">6 Bedroom</div>
-              <div class="price-normal" aria-label="Normal price £180"><del>£180</del></div>
+              <div class="price-normal" aria-label="Normal price £180"><del aria-hidden="true">£180</del></div>
               <div class="price-offer" aria-label="Offer price £150">£150</div>
               <div class="price-save">Save £30</div>
             </div>
@@ -433,7 +438,7 @@
           <div class="section-header contact-header">
             <span class="section-label">Get In Touch</span>
             <h2 id="contact-heading">Ready to Book?<br /><span class="accent">Let's Talk</span></h2>
-            <p>Free quotes, no obligation. Just call, message on Facebook or drop us a message on Instagram.</p>
+            <p>Free quotes, no obligation. Just call or message us on Facebook.</p>
           </div>
 
           <div class="contact-cards">
@@ -457,7 +462,7 @@
               </div>
             </a>
 
-            <div class="contact-card contact-card--static" aria-label="Coverage area">
+            <div class="contact-card contact-card--static" role="group" aria-label="Coverage area">
               <div class="contact-card-icon" aria-hidden="true">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
               </div>
@@ -509,34 +514,39 @@
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
 
+    function closeNav() {
+      navLinks.classList.remove('nav-open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.classList.remove('is-open');
+    }
+
+    function openNav() {
+      navLinks.classList.add('nav-open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      hamburger.classList.add('is-open');
+      // Move focus to first nav link
+      const firstLink = navLinks.querySelector('a');
+      if (firstLink) firstLink.focus();
+    }
+
     hamburger.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('nav-open');
-      hamburger.setAttribute('aria-expanded', isOpen);
-      hamburger.classList.toggle('is-open', isOpen);
+      navLinks.classList.contains('nav-open') ? closeNav() : openNav();
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navLinks.classList.contains('nav-open')) {
+        closeNav();
+        hamburger.focus();
+      }
     });
 
     // Close nav on link click
     navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('nav-open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        hamburger.classList.remove('is-open');
-      });
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', (e) => {
-        const target = document.querySelector(anchor.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
+      link.addEventListener('click', closeNav);
     });
 
     // Sticky nav shadow on scroll
-    const navHeader = document.getElementById('top').querySelector('.nav-header') || document.querySelector('.nav-header');
     window.addEventListener('scroll', () => {
       document.querySelector('.nav-header').classList.toggle('nav-scrolled', window.scrollY > 40);
     }, { passive: true });
