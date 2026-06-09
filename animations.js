@@ -163,8 +163,6 @@
         const a = Math.sin((this.life / this.maxLife) * Math.PI) * 0.7;
         ctx.save();
         ctx.globalAlpha   = a;
-        ctx.shadowColor   = this.col + '1)';
-        ctx.shadowBlur    = 6;
         ctx.fillStyle     = this.col + a + ')';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, TAU);
@@ -173,11 +171,12 @@
       }
     }
 
-    const SPARK_COUNT = window.innerWidth < 768 ? 28 : 55;
+    const SPARK_COUNT = window.innerWidth < 768 ? 14 : 28;
     const sparks = Array.from({ length: SPARK_COUNT }, () => new Spark());
 
     let lastTime = 0;
     function loop(ts) {
+      if (document.hidden) return;
       if (ts - lastTime < 30) { requestAnimationFrame(loop); return; } // ~33fps cap
       lastTime = ts;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -257,6 +256,7 @@
     let lastEmit = 0;
 
     function loop(ts) {
+      if (document.hidden) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const dx = mx - lastMx, dy = my - lastMy;
