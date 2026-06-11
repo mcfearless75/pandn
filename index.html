@@ -665,6 +665,61 @@
             </div>
           </div>
 
+          <div class="contact-form-wrap">
+            <h3 class="contact-form-title">Send a Quick Message</h3>
+            <form id="quote-form" class="quote-form" action="https://formspree.io/f/FORMSPREE_ID" method="POST" novalidate>
+              <input type="hidden" name="_subject" value="New enquiry — P&amp;N Electrical Services" />
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+              <div class="form-row form-row--2">
+                <div class="form-group">
+                  <label for="f-name">Your name *</label>
+                  <input type="text" id="f-name" name="name" required autocomplete="name" placeholder="e.g. Jane Smith" />
+                </div>
+                <div class="form-group">
+                  <label for="f-phone">Phone number *</label>
+                  <input type="tel" id="f-phone" name="phone" required autocomplete="tel" placeholder="07..." />
+                </div>
+              </div>
+              <div class="form-row form-row--2">
+                <div class="form-group">
+                  <label for="f-service">Service needed</label>
+                  <select id="f-service" name="service">
+                    <option value="EICR Test">EICR Test</option>
+                    <option value="Rewiring">Rewiring</option>
+                    <option value="Consumer Unit Upgrade">Consumer Unit Upgrade</option>
+                    <option value="EV Charger Installation">EV Charger Installation</option>
+                    <option value="Outdoor Lighting">Outdoor Lighting</option>
+                    <option value="Fault Finding">Fault Finding</option>
+                    <option value="Additional Sockets / Circuits">Additional Sockets / Circuits</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="f-beds">Bedrooms (EICR pricing)</label>
+                  <select id="f-beds" name="bedrooms">
+                    <option value="">Not applicable</option>
+                    <option value="1 bedroom — £95">1 bedroom — £95</option>
+                    <option value="2 bedrooms — £115">2 bedrooms — £115</option>
+                    <option value="3 bedrooms — £120">3 bedrooms — £120</option>
+                    <option value="4 bedrooms — £130">4 bedrooms — £130</option>
+                    <option value="5 bedrooms — £140">5 bedrooms — £140</option>
+                    <option value="6+ bedrooms — £150">6+ bedrooms — £150</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="f-message">Message (optional)</label>
+                <textarea id="f-message" name="message" rows="3" placeholder="Anything useful — property type, preferred date, postcode, etc."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary form-submit" id="form-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Send Enquiry
+              </button>
+              <p class="form-privacy">Used only to respond to your enquiry. <a href="privacy-policy.html">Privacy Policy</a>.</p>
+              <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
+            </form>
+          </div>
+
         </div>
       </div>
     </section>
@@ -703,6 +758,47 @@
   </footer>
 
   <script src="animations.js" defer></script>
+  <script>
+  (function(){
+    var form=document.getElementById('quote-form');
+    if(!form)return;
+    form.addEventListener('submit',async function(e){
+      e.preventDefault();
+      var btn=document.getElementById('form-btn');
+      var status=document.getElementById('form-status');
+      var name=document.getElementById('f-name').value.trim();
+      var phone=document.getElementById('f-phone').value.trim();
+      if(!name||!phone){
+        status.textContent='Please fill in your name and phone number.';
+        status.className='form-status form-status--error';
+        status.hidden=false;
+        return;
+      }
+      btn.disabled=true;
+      btn.innerHTML='Sending&hellip;';
+      status.hidden=true;
+      try{
+        var res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});
+        if(res.ok){
+          form.reset();
+          status.textContent='Thanks — Tom will be in touch shortly.';
+          status.className='form-status form-status--success';
+          status.hidden=false;
+          btn.hidden=true;
+        }else{
+          var data=await res.json().catch(function(){return{};});
+          throw new Error(data.error||'Server error');
+        }
+      }catch(err){
+        status.textContent='Something went wrong. Please call 07941 061 966.';
+        status.className='form-status form-status--error';
+        status.hidden=false;
+        btn.disabled=false;
+        btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Enquiry';
+      }
+    });
+  })();
+  </script>
   <script>
     // Mobile nav toggle
     const hamburger = document.getElementById('hamburger');
