@@ -2,4 +2,16 @@ User-agent: *
 Allow: /
 Disallow:
 
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://pandnelectricwirral.co.uk/sitemap.xml
