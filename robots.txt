@@ -14,4 +14,7 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://pandnelectricwirral.co.uk/sitemap.xml
